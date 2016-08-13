@@ -8,8 +8,8 @@ app.set('port', process.env.PORT || 3000);
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get ('*/', function (req, res){
-	var file = req.params[0] || '/views/index.html'
+app.get('/*', function (req, res){
+	var file = req.params[0] || '/views/index.html';
 	res.sendFile(path.join(__dirname, './public', file));
 });
 

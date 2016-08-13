@@ -1,4 +1,4 @@
 $(document).ready(function(){
-	console.log("I'm Ready");
+	//console.log("I'm Ready");
 
 });
