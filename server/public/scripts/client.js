@@ -1,7 +1,9 @@
 $(document).ready(function(){
-	//console.log("I'm Ready");
-	   getNumbers();
-	$("#calcultor").on('click', function (){
+	console.log("I'm Ready");
+	   //getNumbers();
+	$("#calculator").on('submit', '#plus', function (){
+		console.log("plus is working");
+		console.log(numbers);
 		event.preventDefault();
 
 	  var numbers = {};
@@ -29,9 +31,9 @@ $(document).ready(function(){
 				type: 'GET',
 				url: '/calculator',
 				success: function (calculator) {
-					$('#calculator').empty();
+					$('#result').empty();
 					calculator.forEach(function (numbers) {
-						$('calculator').append('<div>' + number.num1 + number.num2 + '</div>');
+						$('#result').append('<div>' + number.num1 + number.num2 + '</div>');
 					});
 				},
 				error: function () {
