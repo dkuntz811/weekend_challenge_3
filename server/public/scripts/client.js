@@ -1,47 +1,31 @@
 $(document).ready(function(){
 	console.log("I'm Ready");
 	   //getNumbers();
-	$("#calculator").on('submit', '#plus', function (){
+	$("#calculator").on('click',  function (){
 		console.log("plus is working");
 		console.log(numbers);
 		event.preventDefault();
 
 	  var numbers = {};
 
-		$.each($("#calculator").serializeArray(), function (i, field) {
-		      numbers[field.name] = field.value;
+		var fields = $(this).serializeArray();
+		    fields.forEach(function (field){
+					numbers[field.name] = field.value;
+				});
 
+				console.log('given math numbers', numbers);
 
-		    });
+  $.ajax({
+		type: 'POST',
+		url: '/calculate/' + numbers.operation,
+		data: numbers,
+		success: updateDom
+	});
 
-				console.log('numbers submitted as', numbers);
-
-		$.ajax({
-			type: 'POST',
-			url: '/calculator',
-			data: numbers,
-			success: function (response) {
-				console.log('POST /calculator works');
-				getNumbers();
-			}
-		});
-
-		function getNumbers() {
-			$.ajax({
-				type: 'GET',
-				url: '/calculator',
-				success: function (calculator) {
-					$('#result').empty();
-					calculator.forEach(function (numbers) {
-						$('#result').append('<div>' + number.num1 + number.num2 + '</div>');
-					});
-				},
-				error: function () {
-					console.log('Get /calculator did not work');
-				},
-			});
-		}
-
+	function updateDom(response) {
+		$("#result").text(response);
+	}
 
 	});
+
 });
